@@ -1,0 +1,71 @@
+Script started on 2026-02-11 14:01:57+00:00 [TERM="xterm" TTY="/dev/pts/0" COLUMNS="120" LINES="30"]
+# mongosh -u root -p example
+Current Mongosh Log ID: 698c8be4d381a0dd698ce5af
+Connecting to:          mongodb://<credentials>@127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.6.0
+Using MongoDB:          8.2.4
+Using Mongosh:          2.6.0
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+
+To help improve our products, anonymous usage data is collected and sent to MongoDB periodically (https://www.mongodb.com/legal/privacy-policy).
+You can opt-out by running the disableTelemetry() command.
+
+------
+   The server generated these startup warnings when booting
+   2026-02-11T13:56:28.534+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2026-02-11T13:56:29.183+00:00: For customers running the current memory allocator, we suggest changing the contents of the following sysfsFile
+   2026-02-11T13:56:29.183+00:00: For customers running the current memory allocator, we suggest changing the contents of the following sysfsFile
+   2026-02-11T13:56:29.184+00:00: We suggest setting the contents of sysfsFile to 0.
+   2026-02-11T13:56:29.184+00:00: We suggest setting swappiness to 0 or 1, as swapping can cause performance problems.
+------
+
+test> show dbs
+admin         100.00 KiB
+config         12.00 KiB
+local          72.00 KiB
+the_database   40.00 KiB
+test> use the_database
+switched to db the_database
+the_database> show collections
+todos
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId('698c8a8bdb7ecedfcf8ce5b0'),
+    text: 'Write code',
+    done: true
+  },
+  {
+    _id: ObjectId('698c8a8bdb7ecedfcf8ce5b1'),
+    text: 'Learn about containers',
+    done: false
+  }
+]
+the_database> db.todos.insertOne({ text: 'Increase the number of tools in my tool belt', done: false })
+{
+  acknowledged: true,
+  insertedId: ObjectId('698c8c76d381a0dd698ce5b0')
+}
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId('698c8a8bdb7ecedfcf8ce5b0'),
+    text: 'Write code',
+    done: true
+  },
+  {
+    _id: ObjectId('698c8a8bdb7ecedfcf8ce5b1'),
+    text: 'Learn about containers',
+    done: false
+  },
+  {
+    _id: ObjectId('698c8c76d381a0dd698ce5b0'),
+    text: 'Increase the number of tools in my tool belt',
+    done: false
+  }
+]
+the_database> exit
+# exit
+
+Script done on 2026-02-11 14:05:06+00:00 [COMMAND_EXIT_CODE="0"]
