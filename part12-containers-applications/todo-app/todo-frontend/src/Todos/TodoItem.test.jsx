@@ -2,9 +2,9 @@ import { render, screen } from '@testing-library/react'
 import TodoItem from './TodoItem'
 import { describe, expect } from 'vitest'
 
-describe('TodoItem is rendered', () => {
+describe('TodoItem is rendered.', () => {
 
-  test('renders text and status as done', () => {
+  test('Renders text and status as done.', () => {
     const todo = {
       text: 'Component testing is done with react-testing-library',
       done: true
@@ -23,11 +23,12 @@ describe('TodoItem is rendered', () => {
 
     const textElement = screen.getByText('Component testing is done with react-testing-library')
     const doneElement = screen.getByText('This todo is done')
+
     expect(textElement).toBeDefined()
     expect(doneElement).toBeDefined()
   })
 
-  test('renders text and status as not done', () => {
+  test('Renders text and status as not done.', () => {
     const todo = {
       text: 'Component testing is done with react-testing-library',
       done: false
