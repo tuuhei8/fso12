@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "docker-build": "docker build . -t docker-frontend",
-    "docker-run": "docker run -p 5001:80 docker-frontend",
+    "docker-build": "docker build . -t hello-front",
+    "docker-run": "docker run -p 5001:80 hello-front",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "test": "vitest run",
     "preview": "vite preview"
