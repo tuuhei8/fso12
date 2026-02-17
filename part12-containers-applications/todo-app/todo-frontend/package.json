@@ -8,9 +8,9 @@
     "build": "vite build",
     "docker-build": "docker build . -t hello-front",
     "docker-run": "docker run -p 5001:80 hello-front",
-    "compose": "docker compose -f docker-compose.dev.yml up",
-    "compose-w": "docker compose -f docker-compose.dev.yml up --watch",
-    "compose-down": "docker compose -f docker-compose.dev.yml down",
+    "compose-dev": "docker compose -f docker-compose.dev.yml up",
+    "compose-dev-w": "docker compose -f docker-compose.dev.yml up --watch",
+    "compose-dev-down": "docker compose -f docker-compose.dev.yml down",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "test": "vitest run",
     "preview": "vite preview"

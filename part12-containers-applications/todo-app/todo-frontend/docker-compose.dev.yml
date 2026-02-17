@@ -5,12 +5,13 @@ services:
       context: . # The context will pick this directory as the "build context"
       dockerfile: dev.Dockerfile # This will simply tell which dockerfile to read
   #  volumes:
-   #   - ./:/usr/src/app # The path can be relative, so ./ is enough to say "the same location as the docker-compose.yml"
+  #    - ./:/usr/src/app # The path can be relative, so ./ is enough to say "the same location as the docker-compose.yml"
     develop:
       watch:
         - path: ./
           action: sync
           target: /usr/src/app
+          initial_sync: true
           ignore:
             - node_modules/
         - path: ./package.json
@@ -18,3 +19,5 @@ services:
     ports:
       - 5173:5173
     container_name: hello-front-dev # This will name the container hello-front-dev
+    environment:
+      - VITE_BACKEND_URL=//localhost:3000
