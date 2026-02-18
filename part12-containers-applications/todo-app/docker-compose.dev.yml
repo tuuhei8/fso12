@@ -1,16 +1,51 @@
 services:
+  mongo:
+    image: mongo
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh -u root -p example"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: the_database
+    volumes: 
+      - ./todo-backend/mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+  redis:
+    image: redis
+    command: ['redis-server', '--appendonly', 'yes']
+    volumes:
+      - ./todo-backend/redis_data:/data
+  todo-backend:
+    image: hello-back-dev
+    volumes:
+      - ./todo-backend:/usr/src/app
+    environment:
+      - REDIS_URL=//redis:6379
+      - MONGO_URL=mongodb://the_username:the_password@mongo:27017/the_database
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_started
   todo-frontend:
     image: hello-front-dev
+    volumes:
+      - ./todo-frontend:/usr/src/app
     environment:
-      - VITE_BACKEND_URL=//localhost:3000
+      - VITE_BACKEND_URL=/api/
   nginx:
     image: nginx:1.20.1
     volumes:
       - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
     ports:
-      - 3001:80
+      - 8080:80
     container_name: reverse-proxy
     depends_on:
+      todo-backend:
+        condition: service_started
       todo-frontend:
         condition: service_started
         restart: true
